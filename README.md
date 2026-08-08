@@ -28,4 +28,4 @@ Ejemplo: `https://cdn.jsdelivr.net/gh/nema1502/wtm-email-assets@main/wtm-lockup-
 - Los nombres de archivo **no se cambian**: las plantillas los referencian tal cual.
 - Se regenera desde el proyecto principal con `python pack_assets.py`.
 
-Marca © Women Techmakers Santa Cruz. Women Techmakers es un programa de Google.
+Marca © Women Techmakers Santa Cruz. Women Techmakers es un programa de Technovation.
