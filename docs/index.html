@@ -1,0 +1,534 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Reto de la semana · Los datos viajan — WTM Santa Cruz</title>
+<meta name="description" content="El reto de la sesión 4 del Bootcamp de Automatización e Identidad Digital de Women Techmakers Santa Cruz: que tu flujo salga a buscar un dato a internet y lo cuente con tus palabras.">
+<meta name="theme-color" content="#0E0B23">
+<meta property="og:title" content="Que tu flujo te cuente algo · WTM Santa Cruz">
+<meta property="og:description" content="Tres cajitas, una API gratis y una frase tuya. El reto de la semana del bootcamp.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --violeta:#7C3AED; --fucsia:#C22CEA; --indigo:#4F21F0;
+    --tinta:#0E0B23; --tinta2:#15122B; --tinta3:#1C1840;
+    --lila:#C9B6FF; --humo:#B9B0DC; --gris:#8B82B4;
+    --verde:#7ED9A0; --borde:#2A2358;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--tinta); color:var(--humo);
+    font-family:'Inter',system-ui,-apple-system,sans-serif;
+    font-size:17px; line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  .franja{height:6px;background:linear-gradient(100deg,var(--indigo),#8B2CF0 45%,var(--fucsia))}
+  .env{max-width:860px;margin:0 auto;padding:0 22px}
+
+  header{padding:54px 0 44px;text-align:center}
+  header img{height:34px;width:auto;margin:0 auto 26px;display:block}
+  .pastilla{
+    display:inline-block;background:#2A1B5E;border:1px solid #6D3BF5;
+    border-radius:100px;padding:8px 18px;font-size:12px;font-weight:700;
+    letter-spacing:2px;color:var(--lila);text-transform:uppercase;
+    margin-bottom:22px;
+  }
+  h1{
+    font-family:'Poppins';font-weight:800;font-size:clamp(30px,6vw,50px);
+    line-height:1.08;color:#fff;letter-spacing:-1px;margin-bottom:16px;
+  }
+  header p{max-width:560px;margin:0 auto;font-size:18px;color:var(--humo)}
+
+  section{padding:34px 0}
+  h2{
+    font-family:'Poppins';font-weight:800;font-size:clamp(22px,4vw,30px);
+    color:#fff;letter-spacing:-.5px;margin-bottom:8px;
+  }
+  h3{font-family:'Poppins';font-weight:600;font-size:18px;color:#fff;margin-bottom:6px}
+  .cejilla{
+    font-family:'Poppins';font-weight:600;font-size:11px;letter-spacing:2.4px;
+    text-transform:uppercase;color:var(--violeta);margin-bottom:10px;
+  }
+  p{margin-bottom:14px}
+  p:last-child{margin-bottom:0}
+  strong{color:#fff;font-weight:600}
+  em{color:var(--lila);font-style:normal;font-weight:600}
+  a{color:var(--lila)}
+  .chico{font-size:14.5px;color:var(--gris);line-height:1.55}
+
+  .caja{
+    background:var(--tinta2);border:1px solid var(--borde);border-radius:16px;
+    padding:26px 28px;margin-bottom:16px;
+  }
+  .caja.destacada{border-color:var(--violeta);background:#191339}
+
+  ol.pasos{list-style:none;counter-reset:p;margin:18px 0 0}
+  ol.pasos li{
+    counter-increment:p;position:relative;padding-left:46px;margin-bottom:16px;
+  }
+  ol.pasos li::before{
+    content:counter(p);position:absolute;left:0;top:-1px;
+    width:30px;height:30px;border-radius:50%;background:var(--violeta);
+    color:#fff;font-family:'Poppins';font-weight:800;font-size:14px;
+    display:flex;align-items:center;justify-content:center;
+  }
+
+  /* tarjetas de API con botón de copiar */
+  .apis{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+  .api{
+    background:var(--tinta2);border:1px solid var(--borde);border-radius:14px;
+    padding:20px 20px 18px;display:flex;flex-direction:column;
+  }
+  .api h3{margin-bottom:4px}
+  .api .que{font-size:14.5px;color:var(--gris);flex:1;margin-bottom:14px;line-height:1.5}
+  .api .clave{
+    display:inline-block;font-size:11px;font-weight:700;letter-spacing:1px;
+    text-transform:uppercase;color:#F0B6FF;background:#3A1046;
+    border-radius:20px;padding:3px 10px;margin-bottom:10px;align-self:flex-start;
+  }
+  .url{
+    background:#07061A;border-radius:10px;padding:11px 13px;
+    font-family:ui-monospace,Consolas,'Courier New',monospace;font-size:12px;
+    color:#E8E3FF;word-break:break-all;line-height:1.5;margin-bottom:12px;
+    max-height:96px;overflow:auto;
+  }
+  .copiar{
+    background:transparent;border:1.5px solid var(--violeta);border-radius:100px;
+    color:var(--lila);font-family:'Poppins';font-weight:600;font-size:13.5px;
+    padding:9px 18px;cursor:pointer;align-self:flex-start;
+    transition:background .15s,color .15s;
+  }
+  .copiar:hover{background:var(--violeta);color:#fff}
+  .copiar.listo{background:#14532D;border-color:var(--verde);color:var(--verde)}
+
+
+  /* flujos para copiar y pegar */
+  .flujos{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(310px,1fr))}
+  .flujo{background:var(--tinta2);border:1px solid var(--borde);border-radius:14px;
+    padding:20px;display:flex;flex-direction:column}
+  .flujo .cuando{display:inline-block;font-size:11px;font-weight:700;
+    letter-spacing:1px;text-transform:uppercase;color:var(--lila);
+    background:#241C52;border-radius:20px;padding:3px 10px;margin-bottom:10px;
+    align-self:flex-start}
+  .flujo h3{margin-bottom:5px}
+  .flujo .que{font-size:14.5px;color:var(--gris);flex:1;line-height:1.5;
+    margin-bottom:8px}
+  .flujo .cajitas{font-size:13px;color:var(--gris);margin-bottom:14px}
+  .acciones{display:flex;gap:8px;flex-wrap:wrap}
+  .acciones button,.acciones a{
+    border-radius:100px;font-family:'Poppins';font-weight:600;font-size:13px;
+    padding:9px 16px;cursor:pointer;text-decoration:none;border:1.5px solid;
+    transition:background .15s,color .15s;display:inline-block}
+  .b1{background:var(--violeta);border-color:var(--violeta);color:#fff}
+  .b1:hover{background:#8B4CF5}
+  .b2{background:transparent;border-color:var(--violeta);color:var(--lila)}
+  .b2:hover{background:var(--violeta);color:#fff}
+  .b1.listo,.b2.listo{background:#14532D;border-color:var(--verde);color:var(--verde)}
+  .pasos3{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    margin:18px 0 22px}
+  .paso3{background:var(--tinta2);border:1px solid var(--borde);border-radius:12px;
+    padding:16px 18px}
+  .paso3 .n{display:inline-flex;align-items:center;justify-content:center;
+    width:26px;height:26px;border-radius:50%;background:var(--violeta);color:#fff;
+    font-family:'Poppins';font-weight:800;font-size:13px;margin-bottom:8px}
+  .paso3 .t{font-family:'Poppins';font-weight:600;color:#fff;font-size:15px;
+    margin-bottom:4px}
+  .paso3 p{font-size:14px;color:var(--gris);margin:0;line-height:1.5}
+  kbd{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;
+    background:#07061A;border:1px solid var(--borde);border-radius:5px;
+    padding:2px 6px;color:#E8E3FF}
+
+  /* chuleta de la expresión */
+  .expr{
+    background:#07061A;border-radius:14px;padding:22px;text-align:center;
+    font-family:ui-monospace,Consolas,'Courier New',monospace;
+    font-size:clamp(15px,3.4vw,22px);color:#E8E3FF;margin:16px 0;
+  }
+  .expr .v{color:var(--verde)}
+  .expr .n{color:var(--lila)}
+
+  .errores{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+  .err{background:var(--tinta2);border-left:3px solid var(--fucsia);
+       border-radius:0 12px 12px 0;padding:16px 18px}
+  .err .t{font-family:'Poppins';font-weight:600;color:#fff;margin-bottom:4px;font-size:15.5px}
+  .err p{font-size:14.5px;margin:0;color:var(--gris);line-height:1.5}
+
+  .recursos{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+  .rec{
+    display:block;background:var(--tinta2);border:1px solid var(--borde);
+    border-radius:14px;padding:20px;text-decoration:none;color:inherit;
+    transition:border-color .15s,transform .15s;
+  }
+  .rec:hover{border-color:var(--violeta);transform:translateY(-2px)}
+  .rec .t{font-family:'Poppins';font-weight:600;color:#fff;font-size:16px;margin-bottom:4px}
+  .rec .d{font-size:14px;color:var(--gris);line-height:1.5}
+
+  footer{
+    border-top:1px solid var(--borde);margin-top:46px;padding:34px 0 46px;
+    text-align:center;
+  }
+  footer img{height:30px;width:auto;margin:0 auto 16px;display:block}
+  footer p{font-size:13.5px;color:#5C5583;line-height:1.6}
+  .apoyos{
+    background:#fff;border-radius:12px;padding:16px 26px;display:flex;
+    align-items:center;justify-content:center;gap:26px;flex-wrap:wrap;
+    max-width:420px;margin:0 auto 22px;
+  }
+  .apoyos img{height:38px;width:auto}
+  .apoyos .lbl{
+    width:100%;text-align:center;font-family:'Poppins';font-weight:600;
+    font-size:10px;letter-spacing:1.6px;text-transform:uppercase;color:#9A8CC2;
+  }
+
+  @media (max-width:640px){
+    body{font-size:16px}
+    header{padding:38px 0 30px}
+    section{padding:26px 0}
+    .caja{padding:20px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;scroll-behavior:auto!important}
+  }
+</style>
+</head>
+<body>
+<div class="franja"></div>
+
+<header class="env">
+  <img src="https://cdn.jsdelivr.net/gh/nema1502/wtm-email-assets@v32/wtm-lockup-white.png"
+       alt="Women Techmakers Santa Cruz">
+  <div class="pastilla">Sesión 4 · entrega el miércoles 9</div>
+  <h1>Que tu flujo<br>te cuente algo</h1>
+  <p>Hoy hicimos que los datos viajen entre las cajitas. El reto de esta semana
+  es que tu flujo salga a buscar un dato a internet y lo cuente con tus
+  palabras.</p>
+</header>
+
+<main class="env">
+
+  <section>
+    <div class="cejilla">El reto</div>
+    <h2>Tres cajitas, nada más</h2>
+    <ol class="pasos">
+      <li><strong>Un disparador.</strong> A mano (<em>Trigger manually</em>)
+        alcanza. Si te animás, poné uno programado.</li>
+      <li><strong>Un HTTP Request.</strong> Método <em>GET</em> y la dirección
+        de la API que elijas de acá abajo.</li>
+      <li><strong>Un Edit Fields.</strong> Creá un campo <em>frase</em>, pasalo
+        a <em>Expression</em> y armá una oración que mezcle tu nombre con el
+        dato que trajiste.</li>
+    </ol>
+    <div class="caja destacada" style="margin-top:22px">
+      <h3>Qué entregás</h3>
+      <p>Una captura del flujo corrido, con la frase final visible. Y una línea
+      contando qué API elegiste y por qué ésa.</p>
+      <p class="chico">Hasta el <strong>miércoles 9 de septiembre</strong>, en
+      Classroom. No importa si tu frase termina siendo una tontera: importa que
+      el dato haya viajado.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="cejilla">La chuleta</div>
+    <h2>Cómo se saca un dato</h2>
+    <p>Entre dobles llaves. Un punto por cada nivel al que entrás: los puntos
+    son el camino hasta el dato.</p>
+    <div class="expr">{{ <span class="v">$json</span>.<span class="n">current</span>.<span class="n">temperature_2m</span> }}</div>
+    <p class="chico">Si en el campo ves las llaves tal cual en vez del valor, el
+    campo quedó en modo <em>Fixed</em>: buscá el botoncito
+    <strong>Fixed / Expression</strong> y pasalo a Expression.</p>
+  </section>
+
+  <section>
+    <div class="cejilla">Elegí una · todas gratis</div>
+    <h2>Seis APIs para el reto</h2>
+    <p>Tocá <strong>Copiar</strong> y pegá directo en el campo <em>URL</em> del
+    HTTP Request.</p>
+    <div class="apis" id="apis"></div>
+  </section>
+
+
+  <section id="flujos">
+    <div class="cejilla">Para no quedarte trabada</div>
+    <h2>Flujos listos, para copiar y pegar</h2>
+    <p>Si algo no te sale, agarrá el flujo hecho y seguí. <strong>No es hacer
+    trampa</strong>: abrirlo y ver por dentro por qué funciona enseña tanto
+    como armarlo.</p>
+
+    <div class="pasos3">
+      <div class="paso3"><span class="n">1</span>
+        <div class="t">La más rápida</div>
+        <p>Tocá <em>Copiar el flujo</em> y pegá con <kbd>Ctrl</kbd> +
+        <kbd>V</kbd> sobre el lienzo de n8n. Te va a preguntar
+        <em>Import Workflow?</em> — dale <em>Yes, import</em>.</p></div>
+      <div class="paso3"><span class="n">2</span>
+        <div class="t">Desde la dirección</div>
+        <p>Tocá <em>Copiar el link</em>. En n8n, arriba a la derecha, el menú
+        de los tres puntos → <em>Import</em> → <em>From URL</em>, y pegala.</p></div>
+      <div class="paso3"><span class="n">3</span>
+        <div class="t">Desde el archivo</div>
+        <p>Tocá <em>Bajar</em>. Después en n8n: <em>Import</em> →
+        <em>From file</em> y elegí el que bajaste.</p></div>
+    </div>
+
+    <div class="flujos" id="listaFlujos"></div>
+    <p class="chico" style="margin-top:16px">Ninguno pide cuenta ni clave:
+    los importás y se ejecutan. Si te pide credenciales, algo se pegó mal —
+    borralo y probá de nuevo.</p>
+  </section>
+
+  <section>
+    <div class="cejilla">Va a pasar, y está bien</div>
+    <h2>Si algo se rompe</h2>
+    <div class="errores">
+      <div class="err"><div class="t">Aparecen las llaves tal cual</div>
+        <p>El campo quedó en <em>Fixed</em>. Pasalo a <em>Expression</em>.</p></div>
+      <div class="err"><div class="t">undefined</div>
+        <p>Ese dato no existe en la bandeja. Mirá la pestaña <em>INPUT</em>:
+        ahí está lo que de verdad llegó.</p></div>
+      <div class="err"><div class="t">La cajita se pone roja</div>
+        <p>El servicio contestó un error. Abrila y leé el mensaje: casi siempre
+        es la dirección mal copiada.</p></div>
+      <div class="err"><div class="t">401 · Unauthorized</div>
+        <p>Esa API pide una clave y no se la diste. Las cinco primeras de acá
+        arriba no piden nada.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="cejilla">Para repasar</div>
+    <h2>Todo lo de antes, junto</h2>
+    <div class="recursos">
+      <a class="rec" href="https://cdn.jsdelivr.net/gh/nema1502/wtm-email-assets@v32/guia/tu-primer-flujo-n8n.pdf">
+        <div class="t">La guía en PDF</div>
+        <div class="d">Siete páginas: el paso a paso, las palabras en inglés y
+        20 ideas de flujos.</div></a>
+      <a class="rec" href="https://cdn.jsdelivr.net/gh/nema1502/wtm-email-assets@v32/videos/05-no-estas-sola.mp4">
+        <div class="t">Video · Si te trabaste, no estás sola</div>
+        <div class="d">28 segundos. Para el martes a la noche, cuando parece
+        que sos la única a la que no le sale.</div></a>
+      <a class="rec" href="https://cdn.jsdelivr.net/gh/nema1502/wtm-email-assets@v32/videos/06-copiar-y-pegar.mp4">
+        <div class="t">Video · Copiá y pegá tu primer flujo</div>
+        <div class="d">27 segundos. Las tres formas de meter un flujo hecho
+        adentro de n8n, con los botones que vas a ver.</div></a>
+      <a class="rec" href="https://cdn.jsdelivr.net/gh/nema1502/wtm-email-assets@v32/videos/04-los-datos-viajan.mp4">
+        <div class="t">Video · Los datos viajan</div>
+        <div class="d">27 segundos. Lo de hoy, resumido: la bandeja y la
+        expresión que saca un dato de ella.</div></a>
+      <a class="rec" href="https://cdn.jsdelivr.net/gh/nema1502/wtm-email-assets@v32/videos/03-que-es-n8n.mp4">
+        <div class="t">Video · ¿Qué es n8n?</div>
+        <div class="d">31 segundos. Disparador y acción, el flujo de la tarea
+        anterior.</div></a>
+      <a class="rec" href="https://cdn.jsdelivr.net/gh/nema1502/wtm-email-assets@v32/videos/02-que-es-un-vps.mp4">
+        <div class="t">Video · ¿Qué es un VPS?</div>
+        <div class="d">32 segundos. Dónde va a vivir tu flujo cuando dejes la
+        nube de otros.</div></a>
+      <a class="rec" href="https://learn.n8n.io/courses/course-v1:n8n+N8N101+2026H2/about">
+        <div class="t">El curso oficial</div>
+        <div class="d">N8N101 Essentials, gratis. Entre 2 y 4 horas, con
+        certificado de finalización.</div></a>
+      <a class="rec" href="https://n8n.io/workflows/">
+        <div class="t">Casi 12.000 plantillas</div>
+        <div class="d">Flujos ya armados que podés abrir, mirar por dentro y
+        copiar con <em>Use for free</em>.</div></a>
+      <a class="rec" href="https://classroom.google.com/">
+        <div class="t">Classroom</div>
+        <div class="d">Donde subís la captura y tu línea, hasta el miércoles
+        9.</div></a>
+    </div>
+  </section>
+
+  <section>
+    <div class="caja destacada">
+      <h3>Preguntá sin miedo</h3>
+      <p>Si algo no te sale, no te quedaste atrás: te quedaste en el mismo lugar
+      donde nos quedamos todas la primera vez.</p>
+      <p>Escribí en el <a href="https://chat.whatsapp.com/EgXloLRUvGb1x8DfO1uzXi">grupo
+      de WhatsApp</a> y mandá la captura del error, aunque te parezca obvio.
+      <strong>Si te trabaste vos, seguro se trabaron tres más</strong> — y tu
+      pregunta las destraba a todas.</p>
+      <p class="chico">También podés escribir a
+      <a href="mailto:area.social.wtm@gmail.com">area.social.wtm@gmail.com</a>.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="env">
+  <div class="apoyos">
+    <div class="lbl">Con el apoyo de</div>
+    <img src="https://cdn.jsdelivr.net/gh/nema1502/wtm-email-assets@v32/apoyo-fondo-mujeres.png"
+         alt="Fondo de Mujeres Bolivia">
+    <img src="https://cdn.jsdelivr.net/gh/nema1502/wtm-email-assets@v32/apoyo-utepsa.png"
+         alt="UTEPSA">
+  </div>
+  <img src="https://cdn.jsdelivr.net/gh/nema1502/wtm-email-assets@v32/wtm-lockup-white.png"
+       alt="Women Techmakers Santa Cruz">
+  <p>Bootcamp de Automatización e Identidad Digital para Mujeres · Continuidad 2026<br>
+  © 2026 Women Techmakers Santa Cruz · Santa Cruz de la Sierra, Bolivia</p>
+</footer>
+
+<script src="flujos.js"></script>
+<script>
+// Las APIs viven acá y no en el HTML de arriba para poder agregar una sin
+// tocar la maqueta: la tarjeta y su botón de copiar se arman solos.
+const APIS = [
+  {
+    nombre: 'El clima de Santa Cruz',
+    que: 'Temperatura y humedad ahora mismo. Cambiá las coordenadas por las de tu barrio y te da el tuyo.',
+    dato: '$json.current.temperature_2m',
+    url: 'https://api.open-meteo.com/v1/forecast?latitude=-17.7833&longitude=-63.1821&current=temperature_2m,relative_humidity_2m&timezone=America%2FLa_Paz'
+  },
+  {
+    nombre: 'Un chiste malo',
+    que: 'Viene en inglés. Traducilo con una cajita de IA y ya son dos cosas aprendidas de una.',
+    dato: '$json.setup y $json.punchline',
+    url: 'https://official-joke-api.appspot.com/random_joke'
+  },
+  {
+    nombre: 'Una foto de perro',
+    que: 'Devuelve el enlace a una foto al azar. Sirve para ver que un dato también puede ser una imagen.',
+    dato: '$json.message',
+    url: 'https://dog.ceo/api/breeds/image/random'
+  },
+  {
+    nombre: 'La Estación Espacial',
+    que: 'Dónde está ahora mismo, en vivo, sobre qué punto del planeta. Da un poco de vértigo.',
+    dato: '$json.latitude y $json.longitude',
+    url: 'https://api.wheretheiss.at/v1/satellites/25544'
+  },
+  {
+    nombre: 'El dólar de hoy',
+    que: 'A cuánto está el dólar en bolivianos, ahora. Guardá una fila por día y en un mes tenés un gráfico.',
+    dato: '$json.rates.BOB',
+    url: 'https://open.er-api.com/v6/latest/USD'
+  },
+  {
+    nombre: 'Google, de verdad',
+    que: 'La de la guía. 250 búsquedas gratis al mes. Tu clave va en Credentials, nunca escrita en la cajita.',
+    dato: '$json.organic_results',
+    clave: true,
+    url: 'https://serpapi.com/search?engine=google&q=Women+Techmakers+Santa+Cruz&hl=es&gl=bo'
+  }
+];
+
+const cont = document.getElementById('apis');
+for (const api of APIS) {
+  const t = document.createElement('div');
+  t.className = 'api';
+  const clave = api.clave
+    ? '<span class="clave">pide clave propia</span>' : '';
+  t.innerHTML =
+    clave +
+    '<h3></h3>' +
+    '<div class="que"></div>' +
+    '<div class="url"></div>' +
+    '<button class="copiar" type="button">Copiar dirección</button>' +
+    '<p class="chico" style="margin-top:10px">El dato sale de <em></em></p>';
+  t.querySelector('h3').textContent = api.nombre;
+  t.querySelector('.que').textContent = api.que;
+  t.querySelector('.url').textContent = api.url;
+  t.querySelector('em').textContent = api.dato;
+
+  const boton = t.querySelector('.copiar');
+  boton.addEventListener('click', async () => {
+    // navigator.clipboard necesita HTTPS; en local o si el navegador lo
+    // bloquea se cae a seleccionar el texto, que igual deja copiar a mano.
+    try {
+      await navigator.clipboard.writeText(api.url);
+      boton.textContent = '¡Copiada!';
+      boton.classList.add('listo');
+      setTimeout(() => {
+        boton.textContent = 'Copiar dirección';
+        boton.classList.remove('listo');
+      }, 1800);
+    } catch (e) {
+      const r = document.createRange();
+      r.selectNodeContents(t.querySelector('.url'));
+      const s = window.getSelection();
+      s.removeAllRanges();
+      s.addRange(r);
+      boton.textContent = 'Copiala con Ctrl+C';
+    }
+  });
+  cont.appendChild(t);
+}
+
+// ── Flujos para copiar y pegar ───────────────────────────────────────────
+// FLUJOS viene de flujos.js, que se genera con web/flujos.py.
+const lista = document.getElementById('listaFlujos');
+
+function avisar(boton, texto, original) {
+  boton.textContent = texto;
+  boton.classList.add('listo');
+  setTimeout(() => {
+    boton.textContent = original;
+    boton.classList.remove('listo');
+  }, 1900);
+}
+
+async function alPortapapeles(boton, texto, ok, original) {
+  // navigator.clipboard necesita HTTPS. Si el navegador lo bloquea se cae a
+  // un textarea temporal, que anda en todos lados.
+  try {
+    await navigator.clipboard.writeText(texto);
+    avisar(boton, ok, original);
+  } catch (e) {
+    const ta = document.createElement('textarea');
+    ta.value = texto;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try {
+      document.execCommand('copy');
+      avisar(boton, ok, original);
+    } catch (e2) {
+      boton.textContent = 'No pude copiar';
+    }
+    document.body.removeChild(ta);
+  }
+}
+
+for (const f of (typeof FLUJOS !== 'undefined' ? FLUJOS : [])) {
+  const tarjeta = document.createElement('div');
+  tarjeta.className = 'flujo';
+  tarjeta.innerHTML =
+    '<span class="cuando"></span>' +
+    '<h3></h3>' +
+    '<div class="que"></div>' +
+    '<div class="cajitas"></div>' +
+    '<div class="acciones">' +
+    '  <button class="b1" type="button">Copiar el flujo</button>' +
+    '  <button class="b2" type="button">Copiar el link</button>' +
+    '  <a class="b2" download>Bajar</a>' +
+    '</div>';
+  tarjeta.querySelector('.cuando').textContent = f.cuando;
+  tarjeta.querySelector('h3').textContent = f.nombre;
+  tarjeta.querySelector('.que').textContent = f.que;
+  tarjeta.querySelector('.cajitas').textContent =
+    f.cajitas + ' cajitas · sin credenciales';
+
+  const texto = JSON.stringify(f.json, null, 2);
+  const [bCopiar, bLink] = tarjeta.querySelectorAll('button');
+  bCopiar.addEventListener('click', () =>
+    alPortapapeles(bCopiar, texto, '¡Copiado! Ctrl+V en n8n',
+                   'Copiar el flujo'));
+  bLink.addEventListener('click', () =>
+    alPortapapeles(bLink, f.url, '¡Link copiado!', 'Copiar el link'));
+
+  const bajar = tarjeta.querySelector('a');
+  bajar.href = URL.createObjectURL(
+    new Blob([texto], { type: 'application/json' }));
+  bajar.setAttribute('download', f.archivo);
+
+  lista.appendChild(tarjeta);
+}
+</script>
+</body>
+</html>
