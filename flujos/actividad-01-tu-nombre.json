@@ -3,7 +3,7 @@
   "nodes": [
     {
       "parameters": {},
-      "id": "da03be2c-3d74-4fb8-bbcc-c5b5eeae6b3a",
+      "id": "8dc3cce0-c062-50a7-a64e-02b58867f7f1",
       "name": "▶ Ejecutar",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
@@ -17,7 +17,7 @@
         "assignments": {
           "assignments": [
             {
-              "id": "e3031c3a-1f94-4277-a1af-7295c221c58f",
+              "id": "87a6c77c-115f-5c93-b2e0-b4c326ed5d2b",
               "name": "nombre",
               "type": "string",
               "value": "Noelia"
@@ -27,7 +27,7 @@
         "includeOtherFields": false,
         "options": {}
       },
-      "id": "db84ad3b-c81c-47c6-9749-206e6dd1bd52",
+      "id": "1c906309-d7ff-53c9-876f-973bcb374719",
       "name": "1 · Tu nombre",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
@@ -41,7 +41,7 @@
         "assignments": {
           "assignments": [
             {
-              "id": "bc4dce1e-e151-4eec-8932-d91675620c67",
+              "id": "c0b2957d-c5eb-51dc-8ac4-53602070b3b9",
               "name": "saludo",
               "type": "string",
               "value": "=Hola {{ $json.nombre }}, tu flujo te conoce"
@@ -51,7 +51,7 @@
         "includeOtherFields": true,
         "options": {}
       },
-      "id": "5f91abf6-9c19-4d36-b567-fc4541a572ff",
+      "id": "f0986e34-613d-54d6-b356-d2fef05cdd90",
       "name": "2 · El saludo",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
@@ -67,7 +67,7 @@
         "width": 330,
         "color": 5
       },
-      "id": "891f0874-ae22-4b32-baa5-a6e324fe7902",
+      "id": "b52c3ef8-3ad1-5bc1-a591-9dbd650a0803",
       "name": "Nota Lo que hay que mirar",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -83,7 +83,7 @@
         "width": 360,
         "color": 4
       },
-      "id": "efdae268-c0e4-4bb1-b468-d32be53dd736",
+      "id": "455abce4-1ae2-5154-a50f-c6873330a3d1",
       "name": "Nota Para desarmar en vivo",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,

@@ -3,7 +3,7 @@
   "nodes": [
     {
       "parameters": {},
-      "id": "8dc2806f-8d51-46c0-807b-3d420b7c5017",
+      "id": "8dc3cce0-c062-50a7-a64e-02b58867f7f1",
       "name": "▶ Ejecutar",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
@@ -17,7 +17,7 @@
         "url": "https://api.open-meteo.com/v1/forecast?latitude=-17.7833&longitude=-63.1821&current=temperature_2m,relative_humidity_2m&timezone=America%2FLa_Paz",
         "options": {}
       },
-      "id": "50381826-7087-4bbc-8e23-4c02e65666cf",
+      "id": "87a6c77c-115f-5c93-b2e0-b4c326ed5d2b",
       "name": "1 · Traer el clima",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -31,7 +31,7 @@
         "url": "https://open.er-api.com/v6/latest/USD",
         "options": {}
       },
-      "id": "1b267110-178e-45ab-92fe-ad660be00bf2",
+      "id": "1c906309-d7ff-53c9-876f-973bcb374719",
       "name": "2 · Traer el dólar",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -45,7 +45,7 @@
         "assignments": {
           "assignments": [
             {
-              "id": "8413016f-1eae-4877-a42c-9de49f446d6f",
+              "id": "c0b2957d-c5eb-51dc-8ac4-53602070b3b9",
               "name": "frase",
               "type": "string",
               "value": "=Hoy en Santa Cruz hay {{ $('1 · Traer el clima').item.json.current.temperature_2m }} grados y el dólar está a {{ $json.rates.BOB }} bolivianos."
@@ -55,7 +55,7 @@
         "includeOtherFields": false,
         "options": {}
       },
-      "id": "1b73dc8b-2b9b-4069-8f6e-471f7f4dbe0f",
+      "id": "f0986e34-613d-54d6-b356-d2fef05cdd90",
       "name": "3 · Juntar las dos",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
@@ -71,7 +71,7 @@
         "width": 380,
         "color": 5
       },
-      "id": "74de819e-1e3d-46b3-94ea-7cbdfd70fed3",
+      "id": "b52c3ef8-3ad1-5bc1-a591-9dbd650a0803",
       "name": "Nota Para quien terminó antes",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -87,7 +87,7 @@
         "width": 330,
         "color": 4
       },
-      "id": "e31e9cfd-a3a7-4907-b407-1d6dac18059e",
+      "id": "455abce4-1ae2-5154-a50f-c6873330a3d1",
       "name": "Nota Y si querés más",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
