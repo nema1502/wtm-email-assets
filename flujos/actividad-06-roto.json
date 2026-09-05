@@ -3,7 +3,7 @@
   "nodes": [
     {
       "parameters": {},
-      "id": "af233621-8aad-4fa1-9be7-501546625c95",
+      "id": "6a16da8c-d41f-4242-8b0f-0973aa77fc76",
       "name": "▶ Ejecutar",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
@@ -17,7 +17,7 @@
         "assignments": {
           "assignments": [
             {
-              "id": "f50d66df-aa8b-4d37-a0c1-f5da3b4c1951",
+              "id": "7b0c4f4c-d1b1-45b5-8d3b-90a2a0458353",
               "name": "tuNombre",
               "type": "string",
               "value": "Noelia"
@@ -27,7 +27,7 @@
         "includeOtherFields": false,
         "options": {}
       },
-      "id": "25d272c6-ccb1-42b2-b03d-eba1aa40e25e",
+      "id": "220c0a74-c9f7-4dc3-9c7e-86eee289143f",
       "name": "1 · Tu nombre",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
@@ -38,10 +38,10 @@
     },
     {
       "parameters": {
-        "url": "https://api.open-meteo.com/v1/forecast?latitude=-17.7833&longitude=-63.1821&actual=temperature_2m,relative_humidity_2m&timezone=America%2FLa_Paz",
+        "url": "https://api.open-meteo.com/v1/forecas?latitude=-17.7833&longitude=-63.1821&current=temperature_2m,relative_humidity_2m&timezone=America%2FLa_Paz",
         "options": {}
       },
-      "id": "b55ba24b-2994-40b6-9091-4a23946e981a",
+      "id": "ebdd7ca5-202b-42b6-8502-433593c42e7c",
       "name": "2 · Traer el clima",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -55,7 +55,7 @@
         "assignments": {
           "assignments": [
             {
-              "id": "74f10716-d37f-40ef-8693-ed5f4f5ef662",
+              "id": "711ac020-1846-455f-9b45-9a73c3926779",
               "name": "frase",
               "type": "string",
               "value": "Hola {{ $json.tuNombre }}, hay {{ $json.current.temperatura }} grados."
@@ -65,7 +65,7 @@
         "includeOtherFields": true,
         "options": {}
       },
-      "id": "56e3556e-37ad-489a-9e36-717eda87a145",
+      "id": "6c6524bb-66ea-4bec-a456-f55648903806",
       "name": "3 · Armar la frase",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
@@ -76,12 +76,12 @@
     },
     {
       "parameters": {
-        "content": "## Hay TRES errores. Encontralos\n\nEjecutá el flujo y mirá qué sale mal.\nLos tres están en la lámina 10, así que\nya los conocés.\n\nPista 1: la cajita del clima se pone roja.\nPista 2: en la frase aparecen las llaves\n         tal cual.\nPista 3: y además sale un undefined.\n\nNo mires la respuesta hasta intentarlo.",
-        "height": 310,
+        "content": "## Hay TRES errores. Encontralos\n\nEjecutá el flujo y mirá qué sale mal.\nLos tres están en la lámina 10.\n\nOJO: no aparecen los tres juntos. Arreglás\nuno y recién ahí se ve el siguiente. Así es\ncomo se arregla software de verdad.\n\nPista 1: la cajita del clima se pone roja.\nPista 2: después van a salir las llaves.\nPista 3: y al final, un undefined.\n\nNo mires la respuesta hasta intentarlo.",
+        "height": 330,
         "width": 380,
         "color": 2
       },
-      "id": "f2dc5993-299e-4302-8031-39556658d5eb",
+      "id": "bfa10769-5f24-41f7-842e-e9d670361a86",
       "name": "Nota Hay TRES errores. Encontra",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -92,12 +92,12 @@
     },
     {
       "parameters": {
-        "content": "## La respuesta · no espiar\n\n1. En la dirección dice `actual=` y va\n   `current=`.\n2. El campo *frase* está en Fixed: pasalo a\n   Expression.\n3. Dice `temperatura` y el dato se llama\n   `temperature_2m`. Miralo en la pestaña\n   INPUT.\n\nBonus: *tuNombre* tampoco anda, porque la\nbandeja que llega es la del clima. Va con\n`$('1 · Tu nombre').item.json.tuNombre`.",
+        "content": "## La respuesta · no espiar\n\n1. La dirección dice `/v1/forecas` y va\n   `/v1/forecast`. Falta la t.\n2. El campo *frase* está en Fixed: pasalo a\n   Expression.\n3. Dice `temperatura` y el dato se llama\n   `temperature_2m`. Miralo en la pestaña\n   INPUT.\n\nBonus: *tuNombre* tampoco anda, porque la\nbandeja que llega es la del clima. Va con\n`$('1 · Tu nombre').item.json.tuNombre`.",
         "height": 310,
         "width": 380,
         "color": 4
       },
-      "id": "2100704b-8df8-45cd-bc3f-04956032c8a4",
+      "id": "8b504a0c-37e8-4723-9541-38c3a6a9d284",
       "name": "Nota La respuesta · no espiar",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
