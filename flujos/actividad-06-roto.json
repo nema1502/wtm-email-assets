@@ -1,0 +1,153 @@
+{
+  "name": "WTM SC · Actividad 6 — Este flujo está roto: arreglalo",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "af233621-8aad-4fa1-9be7-501546625c95",
+      "name": "▶ Ejecutar",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -360,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f50d66df-aa8b-4d37-a0c1-f5da3b4c1951",
+              "name": "tuNombre",
+              "type": "string",
+              "value": "Noelia"
+            }
+          ]
+        },
+        "includeOtherFields": false,
+        "options": {}
+      },
+      "id": "25d272c6-ccb1-42b2-b03d-eba1aa40e25e",
+      "name": "1 · Tu nombre",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -150,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://api.open-meteo.com/v1/forecast?latitude=-17.7833&longitude=-63.1821&actual=temperature_2m,relative_humidity_2m&timezone=America%2FLa_Paz",
+        "options": {}
+      },
+      "id": "b55ba24b-2994-40b6-9091-4a23946e981a",
+      "name": "2 · Traer el clima",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        60,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "74f10716-d37f-40ef-8693-ed5f4f5ef662",
+              "name": "frase",
+              "type": "string",
+              "value": "Hola {{ $json.tuNombre }}, hay {{ $json.current.temperatura }} grados."
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "id": "56e3556e-37ad-489a-9e36-717eda87a145",
+      "name": "3 · Armar la frase",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        270,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Hay TRES errores. Encontralos\n\nEjecutá el flujo y mirá qué sale mal.\nLos tres están en la lámina 10, así que\nya los conocés.\n\nPista 1: la cajita del clima se pone roja.\nPista 2: en la frase aparecen las llaves\n         tal cual.\nPista 3: y además sale un undefined.\n\nNo mires la respuesta hasta intentarlo.",
+        "height": 310,
+        "width": 380,
+        "color": 2
+      },
+      "id": "f2dc5993-299e-4302-8031-39556658d5eb",
+      "name": "Nota Hay TRES errores. Encontra",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -400,
+        -60
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## La respuesta · no espiar\n\n1. En la dirección dice `actual=` y va\n   `current=`.\n2. El campo *frase* está en Fixed: pasalo a\n   Expression.\n3. Dice `temperatura` y el dato se llama\n   `temperature_2m`. Miralo en la pestaña\n   INPUT.\n\nBonus: *tuNombre* tampoco anda, porque la\nbandeja que llega es la del clima. Va con\n`$('1 · Tu nombre').item.json.tuNombre`.",
+        "height": 310,
+        "width": 380,
+        "color": 4
+      },
+      "id": "2100704b-8df8-45cd-bc3f-04956032c8a4",
+      "name": "Nota La respuesta · no espiar",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        10,
+        -60
+      ]
+    }
+  ],
+  "connections": {
+    "▶ Ejecutar": {
+      "main": [
+        [
+          {
+            "node": "1 · Tu nombre",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "1 · Tu nombre": {
+      "main": [
+        [
+          {
+            "node": "2 · Traer el clima",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "2 · Traer el clima": {
+      "main": [
+        [
+          {
+            "node": "3 · Armar la frase",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "meta": {
+    "instanceId": "wtm-santa-cruz"
+  },
+  "tags": []
+}

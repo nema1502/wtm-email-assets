@@ -1,0 +1,128 @@
+{
+  "name": "WTM SC · Actividad 1 — Que la segunda cajita diga tu nombre",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "da03be2c-3d74-4fb8-bbcc-c5b5eeae6b3a",
+      "name": "▶ Ejecutar",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -260,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e3031c3a-1f94-4277-a1af-7295c221c58f",
+              "name": "nombre",
+              "type": "string",
+              "value": "Noelia"
+            }
+          ]
+        },
+        "includeOtherFields": false,
+        "options": {}
+      },
+      "id": "db84ad3b-c81c-47c6-9749-206e6dd1bd52",
+      "name": "1 · Tu nombre",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -40,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "bc4dce1e-e151-4eec-8932-d91675620c67",
+              "name": "saludo",
+              "type": "string",
+              "value": "=Hola {{ $json.nombre }}, tu flujo te conoce"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "id": "5f91abf6-9c19-4d36-b567-fc4541a572ff",
+      "name": "2 · El saludo",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        180,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Lo que hay que mirar\n\nAbrí «2 · El saludo» y fijate en el campo *saludo*:\nestá en modo **Expression**, no en Fixed.\n\nAbajo del campo, n8n muestra el resultado ya resuelto.\nEse es el momento que hay que ver.",
+        "height": 250,
+        "width": 330,
+        "color": 5
+      },
+      "id": "891f0874-ae22-4b32-baa5-a6e324fe7902",
+      "name": "Nota Lo que hay que mirar",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -300,
+        -20
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Para desarmar en vivo\n\n1. Cambiá el nombre en la cajita 1 y ejecutá otra vez.\n2. Poné el campo *saludo* en **Fixed** y ejecutá:\n   van a ver las llaves tal cual. Ese es el error\n   número uno de la lámina 10.\n3. Escribí mal el nombre del dato (nombree) y\n   ejecutá: sale **undefined**. Error número dos.",
+        "height": 250,
+        "width": 360,
+        "color": 4
+      },
+      "id": "efdae268-c0e4-4bb1-b468-d32be53dd736",
+      "name": "Nota Para desarmar en vivo",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        60,
+        -20
+      ]
+    }
+  ],
+  "connections": {
+    "▶ Ejecutar": {
+      "main": [
+        [
+          {
+            "node": "1 · Tu nombre",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "1 · Tu nombre": {
+      "main": [
+        [
+          {
+            "node": "2 · El saludo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "meta": {
+    "instanceId": "wtm-santa-cruz"
+  },
+  "tags": []
+}

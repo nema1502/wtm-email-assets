@@ -1,0 +1,159 @@
+{
+  "name": "WTM SC · Actividad 2 — El clima de Santa Cruz, ahora mismo",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "a9bcb4a7-1d20-41bd-a483-0842ac0490e8",
+      "name": "▶ Ejecutar",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -360,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "255430d8-58a5-495d-99fe-cc2aceff4bce",
+              "name": "tuNombre",
+              "type": "string",
+              "value": "Noelia"
+            }
+          ]
+        },
+        "includeOtherFields": false,
+        "options": {}
+      },
+      "id": "8ab762ce-1b05-45e9-b421-7a5efc487517",
+      "name": "1 · Tu nombre",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -150,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://api.open-meteo.com/v1/forecast?latitude=-17.7833&longitude=-63.1821&current=temperature_2m,relative_humidity_2m&timezone=America%2FLa_Paz",
+        "options": {}
+      },
+      "id": "8fb35130-e1c8-45b2-9648-80eab3e51595",
+      "name": "2 · Traer el clima",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        60,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5f6a71c9-c010-42b4-8b9c-3fdab41bf4c6",
+              "name": "frase",
+              "type": "string",
+              "value": "=Hola {{ $('1 · Tu nombre').item.json.tuNombre }}, en Santa Cruz hay {{ $json.current.temperature_2m }} grados y {{ $json.current.relative_humidity_2m }}% de humedad."
+            },
+            {
+              "id": "8f6522f7-c3fa-4221-bada-22645cf2cfb8",
+              "name": "medido",
+              "type": "string",
+              "value": "={{ $json.current.time }}"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "id": "c1c45e1d-2351-4985-9eca-ce12121bd239",
+      "name": "3 · Armar la frase",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        270,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Anda sin cuenta ni clave\n\nOpen-Meteo es gratis y abierta. Se ejecuta y\nlisto: no hay nada que configurar.\n\nLas coordenadas son las de Santa Cruz. Cambialas\ny te da el clima de donde quieras.",
+        "height": 250,
+        "width": 330,
+        "color": 4
+      },
+      "id": "36a2cb56-25fd-40d9-9e6e-6165712fda22",
+      "name": "Nota Anda sin cuenta ni clave",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -400,
+        -30
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## El salto de la clase\n\nMirá la cajita 3: para agarrar el nombre usa\n`$('1 · Tu nombre').item.json.tuNombre`.\n\nEso es pedirle un dato a una cajita ANTERIOR,\nno a la que le acaba de llegar. Es el paso\nsiguiente, y con esto ya lo tienen a la vista.",
+        "height": 250,
+        "width": 370,
+        "color": 5
+      },
+      "id": "658d75a4-068c-4213-98ec-34a815136f30",
+      "name": "Nota El salto de la clase",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -20,
+        -30
+      ]
+    }
+  ],
+  "connections": {
+    "▶ Ejecutar": {
+      "main": [
+        [
+          {
+            "node": "1 · Tu nombre",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "1 · Tu nombre": {
+      "main": [
+        [
+          {
+            "node": "2 · Traer el clima",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "2 · Traer el clima": {
+      "main": [
+        [
+          {
+            "node": "3 · Armar la frase",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "meta": {
+    "instanceId": "wtm-santa-cruz"
+  },
+  "tags": []
+}
